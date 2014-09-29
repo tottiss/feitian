@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//app/Tpl/admin/index/panel.html=UTF-8
+encoding//app/Tpl/admin/items/add.html=UTF-8
+encoding//app/Tpl/admin/items/edit.html=UTF-8
+encoding//app/Tpl/admin/items/index.html=UTF-8
+encoding//app/Tpl/admin/items_brand/add.html=UTF-8
+encoding//app/Tpl/admin/items_brand/edit.html=UTF-8
+encoding//app/Tpl/admin/items_brand/index.html=UTF-8
+encoding//app/Tpl/admin/items_cate/add.html=UTF-8
+encoding//app/Tpl/index/new/item/index.html=UTF-8
+encoding/<project>=UTF-8
+separateDerivedEncodings=true

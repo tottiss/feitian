@@ -1,0 +1,32 @@
+ body{ background-color:#fefeff; font:12px/1.5 arial,ËÎÌåb8b\4f53,sans-serif;}
+	.width30{ width:25%; font-size:12px; border-radius:5px 2px 20px 2px;  }
+	
+	.title{ font-size:15px; font-weight:bold; color:#444; line-height:30px; border-bottom:1px solid #ccc;}
+	.div-news{ height:50px; background-color:#fff}
+	.div-user span{ display:block; font-size:12px; font: 12px/1.5 arial,ËÎÌåb8b\4f53,sans-serif; line-height:20px; color:#999}
+	.div-user{ background-color:#fff; padding:20px;width:30%;float:left;  border-bottom:1px solid #eee }
+	.div-button{ float:left;background-color:#fff; float:left; padding:20px; margin:0 10px; width:55%;border-radius:5px 5px 5px 5px;}
+	.div-button ul li{ float:left; margin:0px 25px;}
+	.div-button li a{  cursor:pointer; text-decoration:none}
+	.div-button li span{ display:block; width:60px; text-align:center; line-height:32px;} 
+	
+	.div-system{background-color:#fff; float:left; padding:20px; margin:0 10px;border-right:1px solid #eee}
+	.div-webinfo{background-color:#fff; float:left; padding:20px; margin:0 10px; width:27%;border-right:1px solid #eee }
+	.div-about{background-color:#fff; float:left; padding:20px; margin:0 10px; overflow:hidden}
+	
+	i{font-style: normal;}
+	
+	 li{font:12px/1.5 arial,ËÎÌåb8b\4f53,sans-serif;}
+	.div-system ul li{height:30px; line-height:30px;color:#333;border-bottom:1px dotted #ddd;}
+	.div-system ul li i{width:90px;height:30px; line-height:30px; display:inline-block; color:#666;}
+	
+		
+	.div-about ul li{height:30px; line-height:30px;color:#333;border-bottom:1px dotted #ddd;}
+	.div-about ul li i{width:90px;height:30px; line-height:30px; display:inline-block; color:#666;}
+	
+	.div-webinfo ul li{height:30px; line-height:30px;color:#333;border-bottom:1px dotted #ddd;}
+	.div-webinfo ul li i{width:90px;height:30px; line-height:30px; display:inline-block; color:#666;}
+	
+	.CMS_message{background-color: #eef3f7;border: 1px solid #d5dfe8; height:20px; padding:5px 0px; overflow:hidden}
+	.CMS_message li{ text-indent:50px; height:25px; line-height:25px; color:#09c;font-size:12px; font-weight:bold;}
+.STYLE3 {color: #FF0000}

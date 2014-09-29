@@ -1,0 +1,64 @@
+<!--添加栏目-->
+<div class="dialog_content col_tab">
+<form id="info_form" action="{:U('items_brand/add')}" method="post">
+	<ul class="J_tabs tab_but cu_li">
+		<li class="current">基本设置</li>
+		<li>SEO设置</li>
+	</ul>
+	<div class="J_panes">
+        <div class="content_list pad_10">
+	<table width="100%" class="table_form">
+		<tr> 
+			<th width="100">{:L('item_brand_parent')} :</th>
+			<td>
+				<select class="J_cate_select mr10" data-pid="0" data-uri="{:U('items_cate/ajax_getchilds')}" data-selected="{$spid}"></select>
+				<input type="hidden" name="cateid" id="J_cate_id" />
+			</td>
+		</tr>
+		<tr>
+			<th>{:L('item_cate_name')} :</th>
+			<td>
+				<input type="text" name="name" id="J_name" class="input-text" size="20">
+			</td>
+		</tr>
+	</table>
+	</div>
+	<div class="content_list pad_10 hidden">
+	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+		<tr>
+			<th width="100">{:L('seo_title')} :</th>
+			<td><input type="text" name="seo_title" class="input-text" style="width:300px;"></td>
+		</tr>
+		<tr>
+			<th>{:L('seo_keys')} :</th>
+			<td><input type="text" name="seo_keys" class="input-text" style="width:300px;"></td>
+		</tr>
+		<tr>
+			<th>{:L('seo_desc')} :</th>
+			<td><textarea name="seo_desc" style="width:295px; height:50px;"></textarea></td>
+		</tr>
+	</table>
+	</div>
+        </div>
+	</form>
+</div>
+<script>
+$(function(){
+	$('ul.J_tabs').tabs('div.J_panes > div');
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+	$('#J_name').formValidator({onshow:lang.please_input+lang.items_brand_name,onfocus:lang.please_input+lang.items_brand_name}).inputValidator({min:1,onerror:lang.please_input+lang.items_brand_name});
+	
+	$('#info_form').ajaxForm({success:complate, dataType:'json'});
+	function complate(result){
+		if(result.status == 1){
+			$.dialog.get(result.dialog).close();
+			$.ftxia.tip({content:result.msg});
+			window.location.reload();
+		} else {
+			$.ftxia.tip({content:result.msg, icon:'alert'});
+		}
+	}
+	//品牌联动
+	$('.J_cate_select').cate_select();
+});
+</script>

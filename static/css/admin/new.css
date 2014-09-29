@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+html,body{ overflow:hidden;}
+#header{height:80px; }
+
+
+#header{background:#2a8bbb url(bgimg/logo1.png) no-repeat -0px 0px;}
+#left{
+	border-right:1px solid #c2d0d9;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+#header .logo{ width:220px; height:80px; float:left;background:#2a8bbb url(bgimg/logo1.png) no-repeat -0px 0px; }
+
+
+#header .nav a{ text-decoration:none}
+#header .nav li{ float:left;height:40px; line-height:45px; margin-right:15px;}
+
+.nav .current, .current a,.normal,.normal a{
+	display:block;
+	position:relative;
+}
+.nav .current{background:url(bgimg/nav_bg_1.png) no-repeat 0px 0px;}
+.nav .current a{
+	display:inline-block;
+	left:20px;
+	text-align:center;
+	padding-right:20px;
+	background:url(bgimg/nav_bg_1.png) no-repeat right top;
+	color:#2a8bbb;
+}
+
+.nav .normal{ background:url(bgimg/nav_bg_2.png) no-repeat;background-position: 0px 0px;}
+.nav .normal a{
+	display:inline-block;
+	left:20px;
+	padding-right:20px;
+	text-align:center;
+	background:url(bgimg/nav_bg_2.png) no-repeat right top;
+	color:#fff;
+}
+
+.header_case{  position:absolute; right:10px; top:10px; color:#fff}
+.header_case a{ padding-left:5px; color:#fff}
+.header_case a:hover{ color:#fff; }
+
+.left_date a{color:#444;}
+.left_date{overflow:hidden;}
+.left_date ul{ margin:0px; padding:0px;}
+.left_date li{line-height:25px; height:25px; margin:0px 10px; margin-left:15px; overflow:hidden;}
+.left_date li a{ display:block;text-indent:5px;  overflow:hidden}
+.left_date li a:hover{ background-color:#d3e8f2;text-decoration:none;border-radius:3px;}
+.left_date .set a{background-color:#d3e8f2;border-radius:3px; font-weight:bold}
+.head{ border-bottom:1px solid #c5e8f1; color:#2a8bbb; font-weight:bold; margin-bottom:10px;}
