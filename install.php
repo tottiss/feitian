@@ -8,3 +8,4 @@ define('APP_NAME', 'install');
 define('APP_PATH', './install/');
 define('APP_DEBUG', true);
 require("./thinkphp/setup.php");
+die();
