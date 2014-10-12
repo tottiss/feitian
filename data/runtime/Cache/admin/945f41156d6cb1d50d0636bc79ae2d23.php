@@ -25,10 +25,17 @@
         <a href="<?php echo U($val['module_name'].'/'.$val['action_name'],array('menuid'=>$menuid)); echo ($val["data"]); ?>" class="<?php echo ($val["class"]); ?>"><em><?php echo ($val['name']); ?></em></a><?php endforeach; endif; else: echo "" ;endif; endif; ?>
     </div>
 </div><?php endif; ?>
+<!--添加商品-->
+<div class="subnav">
+    <h1 class="title_2 line_x">添加商品</h1>
+</div>
 <link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
 <script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>
 <script src="/static/js/fileuploader.js"></script>
-<form id="info_form" action="<?php echo u('items/edit');?>" method="post" enctype="multipart/form-data">
+<form id="info_form" name="info_form" action="<?php echo u('items/add');?>" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="num_iid" id="J_num_iid" value="" />
+	<input type="hidden" name="item_url" id="J_item_url" value="" />
+	
 <div class="pad_lr_10">
 	<div class="col_tab">
 		<ul class="J_tabs tab_but cu_li">
@@ -39,125 +46,123 @@
         <div class="content_list pad_10">
 		<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
 			<tr>
-				<th width="120">所属分类 :</th>
-                <td><select class="J_cate_select mr10" data-pid="0" data-uri="<?php echo U('items_cate/ajax_getchilds', array('type'=>0));?>" data-selected="<?php echo ($selected_ids); ?>"></select>
-                <input type="hidden" name="cate_id" id="J_cate_id" value="<?php echo ($info["cate_id"]); ?>" /></td>
+				<th width="120">宝贝链接：</th>
+                <td><input type="text" id="good_link" name="link" class="input-text" size="50" >
+					<input type="button" value="一键采集" id="J_get_info" name="click_url_btn" class="btn">
+				<p id="good_link" style="display:none;" class="onError">错误</p>
+				</td>
 			</tr>
- 
 			<tr>
+				<th width="120">所属分类 :</th>
+                <td><select class="J_cate_select mr10" data-pid="0" data-uri="<?php echo U('items_cate/ajax_getchilds', array('type'=>0));?>" data-selected=""></select><input type="hidden" name="cate_id" id="J_cate_id" value="" /></td>
+			</tr>
+			<!--<tr>
 				<th>IID :</th>
 				<td>
-                	<input type="text" name="num_iid" id="J_num_iid" class="input-text" size="20" value="<?php echo ($info["num_iid"]); ?>">
+                	<input type="text" name="num_iid" id="J_num_iid" class="input-text" size="20" >
                 </td>
-			</tr>
+			</tr>-->
             <tr>
 				<th>商品名称 :</th>
-				<td><input type="text" name="title" id="J_title" class="input-text" size="60" value="<?php echo ($info["title"]); ?>"></td>
+				<td><input type="text" name="title" id="J_title" class="input-text" size="60" ></td>
 			</tr>
 			<tr>
+				<th>商品图片 :</th>
+				<td><img id="J_pic_url_img"  width="100" ><br />
+					<input type="text" name="pic_url" id="J_pic_url" class="input-text" size="50" >
+					<div id="J_upload_img" class="upload_btn"><span>上传</span></div>
+				</td>
+ 			</tr>
+			<tr>
                 <th>商品简介 :</th>
-                <td><textarea name="intro" cols="100" rows="5"><?php echo ($info["intro"]); ?></textarea></td>
+                <td><textarea name="intro" id="J_intro" cols="80" rows="2"></textarea></td>
             </tr>
-            <tr>
+			<tr>
+				<th>商品标签 :</th>
+				<td>
+                	<input type="text" name="tags" id="J_tags" class="input-text" size="50" >
+                    <input type="button" value="点击获取" id="J_gettags" name="tags_btn" class="btn">
+                </td>
+			</tr>
+			
+			<tr>
+				<th>销量 :</th>
+				<td>
+                	<input type="text" name="volume" id="J_volume" class="input-text" size="10">
+                </td>
+			</tr>
+			<tr>
 				<th width="120">商品原价 :</th>
 				<td><input type="text" name="original_price" size="10" class="input-text" value="<?php echo ($info["original_price"]); ?>"> 元</td>
 			</tr>
 			<tr>
 				<th width="120">商品价格 :</th>
-				<td><input type="text" name="price" size="10" class="input-text" value="<?php echo ($info["price"]); ?>"> 元</td>
+				<td><input type="text" name="price" id="J_price"size="10" class="input-text" > 元</td>
+				<p class="s1" id="prices" style="display:none"></p>
+                            <p class="tips"></p>
 			</tr>
+			<tr>
+				<th>商品折扣 :</th>
+				<td><input type="text" name="coupon_rate" id="coupon_rate" size="10" class="input-text" /><span class="gray m110">折率</span></td>
 			<tr>
 				<th>秒杀价格 :</th>
-				<td><input type="text" name="coupon_price" size="10" class="input-text" value="<?php echo ($info["coupon_price"]); ?>"> 元</td>
+				<td><input type="text" name="coupon_price" id="coupon_price" size="10" class="input-text" > 元</td>
 			</tr>
 			<tr>
-				<th>折扣比率 :</th>
-				<td>
-                	<input type="text" name="coupon_rate" id="coupon_rate" class="input-text" size="10" value="<?php echo ($info["coupon_rate"]); ?>">1000就是1折
-                </td>
-			</tr>
-			<tr>
-				<th>开始时间 :</th>
-				<td><input type="text" name="coupon_start_time" id="coupon_start_time" size="20" class="date" value="<?php echo (date('Y-m-d H:i',$info["coupon_start_time"])); ?>"></td>
-			</tr>
-			<tr>
-				<th>结束时间 :</th>
-				<td><input type="text" name="coupon_end_time" id="coupon_end_time" size="20" class="date" value="<?php echo (date('Y-m-d H:i',$info["coupon_end_time"])); ?>"></td>
-			</tr>
-            <tr>
-				<th>商品图片 :</th>
-				<td>
-					<?php if(!empty($info['pic_url'])): ?><img src="<?php echo ($info['pic_url']); ?>" width="100" id="J_pic_url_img"/><br /><?php endif; ?>
-                      <div id="J_upload_img" class="upload_btn"><span>上传</span></div>					
-					<input type="text" id="J_pic_url" name="pic_url" class="input-text" size="80" value="<?php echo ($info["pic_url"]); ?>"> 大图
-				</td>
- 			</tr>
- 
-            <tr>
-				<th>商品标签 :</th>
-				<td>
-                	<input type="text" name="tags" id="J_tags" class="input-text" size="50" value="<?php echo ($info["tags"]); ?>">
-                    <input type="button" value="<?php echo L('auto_get');?>" id="J_gettags" name="tags_btn" class="btn">
-                </td>
-			</tr>
+                            <th>折扣开始时间 :</th>
+                            <td><input type="text" name="coupon_start_time" id="coupon_start_time"  class="date" value="<?php echo $showtime=date("Y-m-d H:i:s");?>"/></td>
+                        </tr>
+                        <tr>
+                            <th>折扣结束时间 :</th>
+                            <td><input type="text" name="coupon_end_time" id="coupon_end_time" class="date" value="<?php echo $now = date('Y-m-d H:i:s',strtotime('next week')); ?>"/></td>
+                        </tr>
+			
+				
 			
 			
 			<tr>
 				<th width="120">商品来源 :</th>
                 <td>
 				<select name="shop_type" id="shop_type">
-            	<?php if(is_array($orig_list)): $i = 0; $__LIST__ = $orig_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><option value="<?php echo ($val["type"]); ?>" <?php if($info['shop_type'] == $val['type']): ?>selected="selected"<?php endif; ?>><?php echo ($val["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+            	<?php if(is_array($orig_list)): $i = 0; $__LIST__ = $orig_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><option value="<?php echo ($val["type"]); ?>"><?php echo ($val["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
             	</select></td>
 			</tr>
 			<tr>
-				<th>销量 :</th>
-				<td>
-                	<input type="text" name="volume" id="volume" class="input-text" size="10" value="<?php echo ($info["volume"]); ?>">
-                </td>
-			</tr>
-			<tr>
 				<th width="120">是否包邮 :</th>
-                <td>
-                	<input name="ems" value="0" type="radio" <?php if($info['ems'] == '0'): ?>checked<?php endif; ?>>不包邮&nbsp;&nbsp;
-									<input name="ems" value="1" type="radio" <?php if($info['ems'] == '1'): ?>checked<?php endif; ?>>包邮
-									  
+               	<td>
+					<label>
+					<input type="radio" value="1" name="ems" checked>
+					是
+					</label>
+					<label>
+					<input type="radio" value="0" name="ems">
+					否
+					</label>
+					<span class="gray m110" style="margin-left:10px;">选择是否包邮</span>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>推广链接 :</th>
 				<td>
-                	<input type="text" name="click_url" id="J_click_url" class="input-text" size="100" value="<?php echo ($info["click_url"]); ?>">
-					<input type="button" value="<?php echo L('auto_get');?>" id="J_getclick_url" name="click_url_btn" class="btn">
+					<input type="text" name="click_url" id="J_click_url" class="input-text" size="100" value="<?php echo ($info["click_url"]); ?>">
+					<input type="button" value="手动粘贴" id="J_getclick_url" name="click_url_btn" class="btn">
+					<span class="gray m110" style="margin-left:2px;">登陆阿里妈妈后台自助推广中获取</span>
                 </td>
 			</tr>
-
+             <th>店铺ID:</th>
+				<td>
+                	<input type="text" name="sellerId" id="J_sellerId" class="input-text" size="10" value="<?php echo ($info["sellerId"]); ?>">
+                </td>
 
 			<tr>
 				<th>掌柜旺旺 :</th>
 				<td>
-                	<input type="text" name="nick" id="nick" class="input-text" size="20" value="<?php echo ($info["nick"]); ?>">
+                	<input type="text" name="nick" id="J_nick" class="input-text" size="20" value="<?php echo ($info["nick"]); ?>">
+					<span class="gray m110" style="margin-left:10px;">无法获取请手动填写或留空</span>
                 </td>
 			</tr>
 			<tr>
-				<th>掌柜ID :</th>
-				<td>
-                	<input type="text" name="sellerId" id="sellerId" class="input-text" size="20" value="<?php echo ($info["sellerId"]); ?>">
-                </td>
-			</tr>
-			<tr>
-            	<th>发布人 :</th>
-                <td><input type="text" name="realname" id="realname" class="input-text" size="20" value="<?php echo ($info["realname"]); ?>"></td>
-            </tr>
-			<tr>
-            	<th>发布人手机号 :</th>
-                <td><input type="text" name="mobile" id="mobile" class="input-text" size="20" value="<?php echo ($info["mobile"]); ?>"></td>
-            </tr>
-			<tr>
-            	<th>发布人QQ号 :</th>
-                <td><input type="text" name="qq" id="qq" class="input-text" size="20" value="<?php echo ($info["qq"]); ?>"></td>
-            </tr>
-            <tr>
             	<th>最大期数 :</th>
                 <td><input type="text" name="maxqishu" id="maxqishu" class="input-text" size="20" value="<?php echo ($info["maxqishu"]); ?>">
                 期,	   期数上限为65535期,每期揭晓后会根据此值自动添加新一期商品！
@@ -188,14 +193,15 @@
 			</tr>
 		</table>
 		</div>
-        
+	
+        	
         </div>
-		<div class="mt10"><input type="submit" value="<?php echo L('submit');?>" id="dosubmit" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"></div>
+		<div class="mt10"><input type="submit" value="<?php echo L('submit');?>" id="dosubmit" name="dosubmit" class="smt mr10" style="margin:0 0 10px 150px;"></div>
 	</div>
 </div>
 <input type="hidden" name="menuid"  value="<?php echo ($menuid); ?>"/>
-<input type="hidden" name="id" value="<?php echo ($info["id"]); ?>" />
 </form>
+
 <script src="__STATIC__/js/jquery/jquery.js"></script>
 <script src="__STATIC__/js/jquery/plugins/jquery.tools.min.js"></script>
 <script src="__STATIC__/js/jquery/plugins/formvalidator.js"></script>
@@ -218,16 +224,22 @@ $(function(){
 });
 </script><?php endif; ?>
 <div style="display:none"><script language="javascript" type="text/javascript" src="http://js.users.51.la/17114883.js"></script></div>
+
+
 <script type="text/javascript">
+var descEditor;
 $('.J_cate_select').cate_select('请选择');
-$(function() {	
+
+	
+$(function() {
+
 
   //上传图片
     var img_uploader = new qq.FileUploaderBasic({
         allowedExtensions: ['jpg','gif','jpeg','png','bmp','pdg'],
         button: document.getElementById('J_upload_img'),
         multiple: false,
-        action: "?m=ad&a=ajax_upload_img",
+        action: "?m=items&a=ajax_upload_img",
         inputName: 'img',
         forceMultipart: true, //用$_FILES
         messages: {
@@ -247,8 +259,8 @@ $(function() {
         onComplete: function(id, fileName, result){
            // $('#J_pic_url').removeClass('btn_disabled').find('span').text(lang.upload);
             if(result.status == '1'){
-                $('#J_pic_url').val("/data/upload/advert/"+result.data);
-				$('#J_pic_url_img').attr('src',"/data/upload/advert/"+result.data);
+                $('#J_pic_url').val("/data/upload/item/"+result.data);
+				$('#J_pic_url_img').attr('src',"/data/upload/item/"+result.data);
             } else {
                 $.ftxia.tip({content:result.msg, icon:'error'});
             }
@@ -260,7 +272,7 @@ $(function() {
         allowedExtensions: ['jpg','gif','jpeg','png','bmp','pdg'],
         button: document.getElementById('J_upload_extimg'),
         multiple: false,
-        action: "?m=ad&a=ajax_upload_img&type=extimg",
+        action: "?m=items&a=ajax_upload_img&type=extimg",
         inputName: 'extimg',
         forceMultipart: true, //用$_FILES
         messages: {
@@ -286,13 +298,13 @@ $(function() {
             }
         }
     });
-
+	
 	$('ul.J_tabs').tabs('div.J_panes > div');
 	//自动获取标签
 	$('#J_gettags').live('click', function() {
 		var title = $.trim($('#J_title').val());
 		if(title == ''){
-			$.ftxia.tip({content:lang.title_empty, icon:'alert'});
+			$.ftxia.tip({content:lang.article_title_isempty, icon:'alert'});
 			return false;
 		}
 		$.getJSON('<?php echo U("items/ajax_gettags");?>', {title:title}, function(result){
@@ -303,37 +315,65 @@ $(function() {
 			}
 		});
 	});
+	
 
-	$('#J_getclick_url').live('click', function() {
-		var iid = $.trim($('#J_num_iid').val());
-		if(iid == ''){
-			$.ftxia.tip({content:lang.iid_empty, icon:'alert'});
-			return false;
-		}
-		$.getJSON('<?php echo U("items/ajax_getclick_url");?>', {iid:iid}, function(result){
-			if(result.status == 1){
-				$('#J_click_url').val(result.data);
-			}else{
-				$.ftxia.tip({content:result.msg});
-			}
-		});
-	});
-
+	
 	$.formValidator.initConfig({formid:"info_form",autotip:true});
-	$("#J_title").formValidator({onshow:'请填写商品名称',onfocus:'请填写商品名称'}).inputValidator({min:1,onerror:'请填写商品名称'}).defaultPassed();
+	$("#good_link").formValidator({onshow:'请填写宝贝链接',onfocus:'请填写宝贝链接'}).inputValidator({min:1,onerror:'请填写宝贝链接'});
+	$("#J_title").formValidator({onshow:'请填写商品名称',onfocus:'请填写商品名称'}).inputValidator({min:1,onerror:'请填写商品名称'});	//$("#J_num_iid").formValidator({onshow:"请填写iid",onfocus:"请填写iid",oncorrect:"填写正确",onempty:"请填写iid"}).inputValidator({min:9,max:11,onerror:"iid应该为9-11位之间的数字"}).regexValidator({regexp:"^[1-9][0-9]*$",onerror:"请填写整数"});
+	$("#J_price").formValidator({onshow:"请填写原价",onfocus:"请填写价格",oncorrect:"填写正确",onempty:"请填写价格"}).inputValidator({min:1,max:100,onerror:"请正确填写价格"});	//$("#J_pic_url").formValidator({onshow:"请填写宝贝地址",onfocus:"请填写宝贝地址",oncorrect:"填写正确",onempty:"请填写宝贝地址"}).inputValidator({min:50,onerror:"请正确填写宝贝地址"});
+	$("#coupon_price").formValidator({onshow:"请填写秒杀价",onfocus:"请填写秒杀价",oncorrect:"填写正确",onempty:"请填写秒杀价"}).inputValidator({min:1,max:100,onerror:"请填写秒杀价"});
+	$("#coupon_start_time").formValidator({onshow:"请选择秒杀开始时间",onfocus:"请选择秒杀开始时间",oncorrect:"填写正确",onempty:"请填写秒杀开始时间"}).inputValidator({min:15,max:30,onerror:"请正确选择秒杀开始时间"});
+	$("#coupon_end_time").formValidator({onshow:"请选择秒杀结束时间",onfocus:"请选择秒杀开结束时间",oncorrect:"填写正确",onempty:"请填写秒杀开结束时间"}).inputValidator({min:15,max:30,onerror:"请正确选择秒杀开结束时间"});
+	$("#J_volume").formValidator({onshow:"请输入宝贝销量",onfocus:"请输入宝贝销量",oncorrect:"填写正确",onempty:"请输入宝贝销量"}).inputValidator({min:1,max:100,onerror:"请输入正确的数字"});	//$("#J_nick").formValidator({onshow:"请填写掌柜",onfocus:"请填写掌柜",oncorrect:"填写正确",onempty:"请填写标题"}).inputValidator({min:3,max:100,onerror:"请正确填写掌柜"});
+	var collect_url = "<?php echo U('items/ajaxgetid');?>";	
+	
+		$('#J_get_info').live('click', function() {
+			var link = $("#good_link").val();
+			
+			//ajax获取数据
+			  $.getJSON('<?php echo U("items/ajaxGetItem");?>',{link:link},function(data){
+                if(data.status===1)
+                {
+					
+					if(/taobao\.com/.test(link)){
+						$('#shop_type option').get(0).selected = true;
+						$('#shop_type option').get(1).selected = false;
+					}else{
+						$('#shop_type option').get(0).selected = false;
+						$('#shop_type option').get(1).selected = true;	
+					}
+                    var info=data.data;
+					//alert(info['volume']);
+					$('#J_num_iid').val(info['num_iid']);
+                    $('#num_iid').val(info['num_iid']);
+					$('#J_pic_url').val(info['pic_url']);
+                    $('#J_title').val(info['title']);
+                    $('#J_pic_url_img').attr('src',info['pic_url']);
+                    $('#nick').val(info['nick']);
+                    $('#J_volume').val(info['volume']);
+					$('#coupon_rate').val(info['coupon_rate']);
+                    $('#J_price').val(info['price']);
+                    $('#orig_id').val(info['orig_id']);
+					$("#coupon_price").val(info['coupon_price']);
+					$("#J_gettags").trigger('click');
+					$("#J_nick").val(info['nick']);
+					$("#J_sellerId").val(info['sellerId'])
+                }else
+                {
+                    $.ftxia.tip({icon:'alert',content:data.msg});
+                }
+            });
+			
+			
+			
+			
+			
+			
+		});
+
 });
-function get_child_cates(obj,to_id)
-{
-	var parent_id = $(obj).val();
-	if( parent_id ){
-		$.get('?m=items&a=get_child_cates&g=admin&parent_id='+parent_id,function(data){
-				var obj = eval("("+data+")");
-				$('#'+to_id).html( obj.content );
-	    });
-    }
-}
- 
- 
+
 </script>
 <script type="text/javascript">
      Calendar.setup({
