@@ -17,9 +17,15 @@
 					<a target="_blank" href="{:U('item/index',array('id'=>$item['num_iid']))}" class="title">{$item.title}</a>
 				</h5>
 				<div class="good-price">
-					<span class="price-current"><em>￥</em>{$item.coupon_price}</span>
+					<span class="price-current"><em>￥</em>{$item.coupon_price}
+					</span>
 					<span class="des-other">
+						原价:<font color="blue"><em>￥</em>{$item.original_price}</font>
+						打<font color="red" class="f14"><strong>{$item.zk}</strong></font>折
+						
+						<!-- 
 						<if condition="$item.coupon_price eq $item['price'] "><span class="price-old">已卖出{$item.volume}件 </span><else /><span class="price-old"><em>¥{$item.price}</em> </span></if>
+						
 						<span class="discount show">
 							<if condition="$item.ems eq 1"><b class="i2" title="包邮"></b></if>
 							<notempty name="visitor">
@@ -28,6 +34,7 @@
 							</if>
 							</notempty>
 						</span>
+						 -->
 					</span>
 					<div class="btn-new {$item.class}">
 						<a href="{:U('jump/index',array('id'=>$item['num_iid']))}" target="_blank" rel="nofollow"><span>

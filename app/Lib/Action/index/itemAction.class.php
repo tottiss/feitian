@@ -43,7 +43,7 @@ class itemAction extends FirstendAction {
 		}
 
 		$item['class'] = $this->_mod->status($item['status'],$item['coupon_start_time'],$item['coupon_end_time']);
-        $item['zk']    = round(($item['coupon_price']/$item['price'])*10, 2); 
+        $item['zk']    = round(($item['original_price']/$item['price'])*10, 1); 
 		
 		$this->assign('item', $item);
 

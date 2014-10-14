@@ -197,13 +197,20 @@
 					<a target="_blank" href="<?php echo U('item/index',array('id'=>$item['num_iid']));?>" class="title"><?php echo ($item["title"]); ?></a>
 				</h5>
 				<div class="good-price">
-					<span class="price-current"><em>￥</em><?php echo ($item["coupon_price"]); ?></span>
+					<span class="price-current"><em>￥</em><?php echo ($item["coupon_price"]); ?>
+					</span>
 					<span class="des-other">
+						原价:<font color="blue"><em>￥</em><?php echo ($item["original_price"]); ?></font>
+						打<font color="red" class="f14"><strong><?php echo ($item["zk"]); ?></strong></font>折
+						
+						<!-- 
 						<?php if($item["coupon_price"] == $item['price'] ): ?><span class="price-old">已卖出<?php echo ($item["volume"]); ?>件 </span><?php else: ?><span class="price-old"><em>¥<?php echo ($item["price"]); ?></em> </span><?php endif; ?>
+						
 						<span class="discount show">
 							<?php if($item["ems"] == 1): ?><b class="i2" title="包邮"></b><?php endif; ?>
 							<?php if(!empty($visitor)): if($visitor['username'] == C('ftx_index_admin')): ?><a title="不显示" href="javascript:void(0);" data-id="<?php echo ($item["num_iid"]); ?>">取消</a><?php endif; endif; ?>
 						</span>
+						 -->
 					</span>
 					<div class="btn-new <?php echo ($item["class"]); ?>">
 						<a href="<?php echo U('jump/index',array('id'=>$item['num_iid']));?>" target="_blank" rel="nofollow"><span>

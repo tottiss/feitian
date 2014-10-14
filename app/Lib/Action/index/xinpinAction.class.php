@@ -82,7 +82,7 @@ class xinpinAction extends FirstendAction {
 		foreach($items_list as $key=>$val){
 			$items[$key]			= $val;
 			$items[$key]['class']	= $this->_mod->status($val['status'],$val['coupon_start_time'],$val['coupon_end_time']);
-			$items[$key]['zk']		= round(($val['coupon_price']/$val['price'])*10, 1); 
+			$items[$key]['zk']		= round(($val['original_price']/$val['price'])*10, 1); 
 			if(!$val['click_url']){
 				$items[$key]['click_url']	=U('jump/index',array('id'=>$val['id']));
 			}
@@ -98,6 +98,7 @@ class xinpinAction extends FirstendAction {
 			$items[$key]['urltitle'] = urlencode($val['title']);
 			$items[$key]['price'] = number_format($val['price'],1);
 			$items[$key]['coupon_price'] = number_format($val['coupon_price'],1);
+			$items[$key]['original_price'] = number_format($val['original_price'],1);
 			$pagecount++;
 		}
 		$this->assign('pagecount', $pagecount);

@@ -127,7 +127,7 @@
 
 .good-price { width: 238px; height: 36px; line-height: 36px; position: relative; margin: 0 auto; }
 .good-price .price-current, .good-price .des-other { display: block; float: left; }
-.good-price .price-current { font-size: 32px; color: #50830b; font-family: Arial; }
+.good-price .price-current { font-size: 30px; color: #50830b; font-family: Arial; }
 .good-price .price-current em { font-size: 14px; font-family: "微软雅黑", "verdana"; vertical-align: 1px; margin-left: 1px; }
 .good-price .price-discount { color: #ccc; text-decoration: line-through; }
 .good-price .des-other { margin-left: 5px; }

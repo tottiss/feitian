@@ -857,17 +857,18 @@ class robotsAction extends BackendAction {
 							$ftxia_https_item = new ftxia_https();
 							$ftxia_https_item->fetch($itemurl);
 							$result_tmp = $ftxia_https_item->results;
+							
 							if(!$result_tmp){
 								$result_tmp = file_get_contents($result_tmp);
 							}
+							
 							$result_tmp = Newiconv("GBK", "UTF-8", $result_tmp);
 							
-							if (preg_match("%-%", $result_tmp)) {
+							if (preg_match("%\d+.00\s+-\s+\d+.00%", $result_tmp)) {
 								$original_price=get_word($result_tmp,L($pre.'original_pricess_start'),L($pre.'original_pricess_end'));
 							}else{
 								$original_price=get_word($result_tmp,L($pre.'original_price_start'),L($pre.'original_price_end'));
 							}
-							
 						}
 						
 						if (preg_match('%http://detail\.tmall\.com/item\.htm(?:.*?)\d+%sim', $item,$matches)) {

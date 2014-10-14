@@ -44,13 +44,16 @@
 					
 				</dl>
 				<p class="tips clear">
-				<if condition="$item.coupon_price eq $item['price'] "><span class="item-pr fl">已卖出：<em class="ffv">{$item.volume}件</em></span>
-					<span class="fl">有 <em class="org_2 ffv">{$item.likes}</em>人喜欢</span><else /><span class="item-pr fl">原价：<em class="old-price ffv">{$item.price}元</em></span>
-					<span class="fl">折扣：<em class="org_2 ffv">{$item.zk}折</em></span></if>
+				<if condition="$item.original_price eq $item['price'] "><span class="item-pr fl">已卖出：<em class="ffv">{$item.volume}件</em></span>
+					<span class="fl">有 <em class="org_2 ffv">{$item.likes}</em>人喜欢</span>
+					<else />
+					<span class="item-pr fl">原价：<em class="old-price ffv">{$item.original_price}元</em></span>
+					<span class="fl">折扣：<em class="org_2 ffv">{$item.zk}折</em></span>
+					</if>
 				</p>
 				<p class="price">
 					<span class="title-tips01">折扣价格<em class="tip-b"></em></span>
-					<em class="org">￥</em><span class="jd-current">{$item.coupon_price}</span> 
+					<em class="org">￥</em><span class="jd-current">{$item.price}</span> 
 					<if condition="$item.ems eq 1">/包邮</if></span>
 				</p>
 				<div class="pg"></div>

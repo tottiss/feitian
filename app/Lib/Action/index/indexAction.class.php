@@ -144,7 +144,7 @@ class indexAction extends FirstendAction {
 				foreach($items_list as $key=>$val){
 					$items['item_list'][$key]			= $val;					
 					$items['item_list'][$key]['class']	= $this->_mod->status($val['status'],$val['coupon_start_time'],$val['coupon_end_time']);
-					$items['item_list'][$key]['zk']		= round(($val['coupon_price']/$val['price'])*10, 1); 
+					$items['item_list'][$key]['zk']		= round(($val['original_price']/$val['price'])*10, 1); 
 					if(!$val['click_url']){
 						$items['item_list'][$key]['click_url']	=U('jump/index',array('id'=>$val['id']));
 					}
@@ -160,6 +160,7 @@ class indexAction extends FirstendAction {
 					$items['item_list'][$key]['urltitle'] = urlencode($val['title']);
 					$items['item_list'][$key]['price'] = number_format($val['price'],1);
 					$items['item_list'][$key]['coupon_price'] = number_format($val['coupon_price'],1);
+					$items['item_list'][$key]['original_price'] = number_format($val['original_price'],1);
 					if($val['sellerId']){
 						$items['seller_arr'][] = $val['sellerId'];
 					}
@@ -174,7 +175,7 @@ class indexAction extends FirstendAction {
 			foreach($items_list as $key=>$val){
 				$items['item_list'][$key]			= $val;
 				$items['item_list'][$key]['class']	= $this->_mod->status($val['status'],$val['coupon_start_time'],$val['coupon_end_time']);
-				$items['item_list'][$key]['zk']		= round(($val['coupon_price']/$val['price'])*10, 1); 
+				$items['item_list'][$key]['zk']		= round(($val['original_price']/$val['price']), 1); 
 				if(!$val['click_url']){
 					$items['item_list'][$key]['click_url']	=U('jump/index',array('id'=>$val['id']));
 				}
@@ -189,6 +190,7 @@ class indexAction extends FirstendAction {
 				$items['item_list'][$key]['url'] = urlencode($url);
 				$items['item_list'][$key]['urltitle'] = urlencode($val['title']);
 				$items['item_list'][$key]['price'] = number_format($val['price'],1);
+				$items['item_list'][$key]['original_price'] = number_format($val['original_price'],1);
 				$items['item_list'][$key]['coupon_price'] = number_format($val['coupon_price'],1);
 				if($val['sellerId']){
 					$items['seller_arr'][] = $val['sellerId'];
